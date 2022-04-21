@@ -1,0 +1,7 @@
+.gradle
+assets
+build
+libs/gdnativelibs.json
+libs/**/*.so
+src/debug
+src/release

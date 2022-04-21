@@ -1,0 +1,16 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="godot_"
+reloadable=true
+
+[entry]
+
+Android.arm64-v8a="res://addons/GDMP/libs/android/arm64-v8a/libgdmp.so"
+X11.64="res://addons/GDMP/libs/linux/x86_64/libgdmp.so"
+
+[dependencies]
+
+Android.arm64-v8a=[ "res://addons/GDMP/libs/android/arm64-v8a/libopencv_java3.so" ]
+X11.64=[  ]

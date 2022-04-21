@@ -1,0 +1,3 @@
+[submodule "GDMP"]
+	path = GDMP
+	url = https://github.com/j20001970/GDMP
