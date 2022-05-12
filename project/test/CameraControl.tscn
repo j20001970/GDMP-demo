@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://fonts/noto/NotoSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://test/CameraControl.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="CameraControl" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 2 )
+btn_start = NodePath("HBoxContainer/Start")
+btn_stop = NodePath("HBoxContainer/Stop")
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 0.4
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 88.0
+text = "Use Start/Stop buttons to control camera."
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_right = 40.0
+expand = true
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.95
+custom_constants/separation = 64
+alignment = 1
+
+[node name="Start" type="Button" parent="HBoxContainer"]
+margin_left = 764.0
+margin_right = 935.0
+margin_bottom = 162.0
+text = "Start"
+
+[node name="Stop" type="Button" parent="HBoxContainer"]
+margin_left = 999.0
+margin_right = 1155.0
+margin_bottom = 162.0
+text = "Stop"
