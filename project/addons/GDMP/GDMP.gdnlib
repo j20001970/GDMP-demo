@@ -2,13 +2,13 @@
 
 singleton=false
 load_once=true
-symbol_prefix="godot_"
+symbol_prefix="mediapipe_"
 reloadable=true
 
 [entry]
 
-Android.arm64-v8a="res://addons/GDMP/libs/android/arm64-v8a/libgdmp.so"
-X11.64="res://addons/GDMP/libs/linux/x86_64/libgdmp.so"
+Android.arm64-v8a="res://addons/GDMP/libs/android/arm64-v8a/libGDMP.so"
+X11.64="res://addons/GDMP/libs/linux/x86_64/libGDMP.so"
 
 [dependencies]
 
