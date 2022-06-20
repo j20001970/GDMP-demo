@@ -1,0 +1,173 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://test/GraphTest.gd" type="Script" id=1]
+[ext_resource path="res://fonts/noto/NotoSans-Bold.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="GraphTest" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 1 )
+btn_initialize = NodePath("VBoxContainer/GraphPath/VBoxContainer/Initialize")
+btn_is_initialized = NodePath("VBoxContainer/GraphPath/VBoxContainer/IsInitialized")
+btn_is_running = NodePath("VBoxContainer/Control/IsRunning")
+btn_has_input_stream = NodePath("VBoxContainer/HasStream/VBoxContainer/CheckInput")
+btn_has_output_stream = NodePath("VBoxContainer/HasStream/VBoxContainer/CheckOutput")
+btn_add_callback = NodePath("VBoxContainer/PacketCallback/Button")
+btn_start = NodePath("VBoxContainer/Control/Start")
+btn_stop = NodePath("VBoxContainer/Control/Stop")
+chk_as_text = NodePath("VBoxContainer/GraphPath/CheckBox")
+input_graph_path = NodePath("VBoxContainer/GraphPath/LineEdit")
+input_stream_name = NodePath("VBoxContainer/HasStream/LineEdit")
+input_callback_stream = NodePath("VBoxContainer/PacketCallback/LineEdit")
+label = NodePath("VBoxContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 64
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_top = 133.0
+margin_right = 1920.0
+margin_bottom = 221.0
+align = 1
+valign = 1
+
+[node name="GraphPath" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 285.0
+margin_right = 1920.0
+margin_bottom = 505.0
+
+[node name="Label" type="Label" parent="VBoxContainer/GraphPath"]
+margin_top = 66.0
+margin_right = 399.0
+margin_bottom = 154.0
+text = "Graph path: "
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/GraphPath"]
+margin_left = 403.0
+margin_top = 61.0
+margin_right = 1087.0
+margin_bottom = 159.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+text = "res://mediapipe/graphs/pose_tracking/pose_tracking_gpu.pbtxt"
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/GraphPath"]
+margin_left = 1091.0
+margin_right = 1511.0
+margin_bottom = 220.0
+pressed = true
+text = "Load as text"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/GraphPath"]
+margin_left = 1515.0
+margin_right = 1920.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Initialize" type="Button" parent="VBoxContainer/GraphPath/VBoxContainer"]
+margin_right = 405.0
+margin_bottom = 94.0
+text = "Initialize"
+
+[node name="IsInitialized" type="Button" parent="VBoxContainer/GraphPath/VBoxContainer"]
+margin_top = 126.0
+margin_right = 405.0
+margin_bottom = 220.0
+text = "Is initialized"
+
+[node name="HasStream" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 569.0
+margin_right = 1920.0
+margin_bottom = 789.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HasStream"]
+margin_top = 66.0
+margin_right = 401.0
+margin_bottom = 154.0
+text = "Has stream: "
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/HasStream"]
+margin_left = 405.0
+margin_top = 61.0
+margin_right = 1472.0
+margin_bottom = 159.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HasStream"]
+margin_left = 1476.0
+margin_right = 1920.0
+margin_bottom = 220.0
+custom_constants/separation = 32
+
+[node name="CheckInput" type="Button" parent="VBoxContainer/HasStream/VBoxContainer"]
+margin_right = 444.0
+margin_bottom = 94.0
+text = "Check input"
+
+[node name="CheckOutput" type="Button" parent="VBoxContainer/HasStream/VBoxContainer"]
+margin_top = 126.0
+margin_right = 444.0
+margin_bottom = 220.0
+text = "Check output"
+
+[node name="PacketCallback" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_top = 772.0
+margin_right = 1920.0
+margin_bottom = 870.0
+
+[node name="Label" type="Label" parent="VBoxContainer/PacketCallback"]
+margin_top = 5.0
+margin_right = 679.0
+margin_bottom = 93.0
+text = "Add packet callback: "
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/PacketCallback"]
+margin_left = 683.0
+margin_right = 1778.0
+margin_bottom = 98.0
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/PacketCallback"]
+margin_left = 1782.0
+margin_right = 1920.0
+margin_bottom = 98.0
+text = "Add"
+
+[node name="Control" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 853.0
+margin_right = 1920.0
+margin_bottom = 947.0
+custom_constants/separation = 32
+alignment = 1
+
+[node name="Start" type="Button" parent="VBoxContainer/Control"]
+margin_left = 592.0
+margin_right = 763.0
+margin_bottom = 94.0
+text = "Start"
+
+[node name="Stop" type="Button" parent="VBoxContainer/Control"]
+margin_left = 795.0
+margin_right = 951.0
+margin_bottom = 94.0
+text = "Stop"
+
+[node name="IsRunning" type="Button" parent="VBoxContainer/Control"]
+margin_left = 983.0
+margin_right = 1327.0
+margin_bottom = 94.0
+text = "Is running"
