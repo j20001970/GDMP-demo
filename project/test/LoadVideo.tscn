@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://fonts/noto/NotoSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://test/LoadVideo.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[node name="LoadVideo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 2 )
+video = NodePath("VideoPlayer")
+texture = NodePath("TextureRect")
+btn_load_video = NodePath("Button")
+file = NodePath("FileDialog")
+
+[node name="VideoPlayer" type="VideoPlayer" parent="."]
+anchor_right = 0.5
+anchor_bottom = 0.8
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.8
+expand = true
+stretch_mode = 6
+
+[node name="Button" type="Button" parent="."]
+anchor_left = 0.4
+anchor_top = 0.8
+anchor_right = 0.6
+anchor_bottom = 1.0
+text = "Load video"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+anchor_right = 0.8
+anchor_bottom = 0.8
+theme = SubResource( 4 )
+popup_exclusive = true
+window_title = "Load a video"
+dialog_hide_on_ok = true
+mode_overrides_title = false
+mode = 0
+filters = PoolStringArray( "*.webm", "*.ogv" )
