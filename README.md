@@ -6,3 +6,14 @@ This is the demo project for [GDMP](https://github.com/j20001970/GDMP) plugin.
 
 ## Project Information
 Godot version: **v4.4.stable**
+
+GDMP version: **bcbffa62a048c8c9ffb4d687552bbcbfd0125bfc**
+
+Current supported platforms:
+
+- Android (arm64-v8a and x86_64)
+- iOS (arm64 and x86_64)
+- Linux Desktop (Freedesktop SDK 24.08) (x86_64)
+- macOS (arm64 and x86_64)
+- Windows x86_64
+- Web
