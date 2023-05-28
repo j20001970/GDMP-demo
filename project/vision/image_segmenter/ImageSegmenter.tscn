@@ -1,0 +1,20 @@
+[gd_scene load_steps=6 format=3 uid="uid://dlhbw057qknly"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_65wcx"]
+[ext_resource type="Script" path="res://vision/image_segmenter/ImageSegmenter.gd" id="2_eucrs"]
+[ext_resource type="Shader" path="res://vision/image_segmenter/ImageSegmenter.gdshader" id="3_862df"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_6rqqv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgvqq"]
+shader = ExtResource("3_862df")
+shader_parameter/mask = SubResource("ImageTexture_6rqqv")
+
+[node name="VisionTask" instance=ExtResource("1_65wcx")]
+script = ExtResource("2_eucrs")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Image Segmenter"
+
+[node name="Image" parent="VBoxContainer" index="1"]
+material = SubResource("ShaderMaterial_dgvqq")
