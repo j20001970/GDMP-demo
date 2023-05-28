@@ -12,12 +12,21 @@ config_version=5
 
 config/name="GDMP Demo"
 config/description="Demo project for GDMP plugin"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/FileAccessWeb/plugin.cfg", "res://addons/GDMP/plugin.cfg", "res://addons/gut/plugin.cfg")
+
+[native_extensions]
+
+paths=["res://addons/GDMP/GDMP.gdextension"]
 
 [rendering]
 
