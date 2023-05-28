@@ -12,7 +12,8 @@ config_version=5
 
 config/name="GDMP Demo"
 config/description="Demo project for GDMP plugin"
-config/features=PackedStringArray("4.0", "Mobile")
+run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
@@ -23,7 +24,16 @@ window/stretch/mode="viewport"
 
 project/assembly_name="GDMP Demo"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GDMP/plugin.cfg")
+
+[native_extensions]
+
+paths=["res://addons/GDMP/GDMP.gdextension"]
+
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true

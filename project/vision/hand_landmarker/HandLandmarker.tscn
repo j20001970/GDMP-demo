@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjk4l8wanrl2a"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_ryxeg"]
+[ext_resource type="Script" path="res://vision/hand_landmarker/HandLandmarker.gd" id="2_3t2ck"]
+
+[node name="VisionTask" instance=ExtResource("1_ryxeg")]
+script = ExtResource("2_3t2ck")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Hand Landmarker"
+
+[node name="Handedness" type="Label" parent="VBoxContainer/Image" index="0"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32

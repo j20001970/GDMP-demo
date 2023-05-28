@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c77l41iv88p8i"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_u3tq4"]
+[ext_resource type="Script" path="res://vision/face_detector/FaceDetector.gd" id="2_8lryt"]
+
+[node name="VisionTask" instance=ExtResource("1_u3tq4")]
+script = ExtResource("2_8lryt")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Face Detector"
