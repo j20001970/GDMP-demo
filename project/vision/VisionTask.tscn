@@ -1,0 +1,121 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://vision/VisionTask.gd" type="Script" id=1]
+[ext_resource path="res://fonts/NotoSans-Bold.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=2]
+size = 64
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="ImageTexture" id=1]
+
+[sub_resource type="DynamicFont" id=4]
+size = 48
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[node name="VisionTask" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+script = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1001.0
+margin_bottom = 568.0
+custom_constants/separation = 32
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 969.0
+margin_bottom = 88.0
+custom_fonts/font = SubResource( 2 )
+text = "Vision Task"
+align = 1
+valign = 1
+
+[node name="Back" type="Button" parent="VBoxContainer/Title"]
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+grow_vertical = 2
+custom_fonts/font = SubResource( 3 )
+text = "Back"
+
+[node name="Image" type="TextureRect" parent="VBoxContainer"]
+margin_top = 120.0
+margin_right = 969.0
+margin_bottom = 431.0
+size_flags_vertical = 3
+texture = SubResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 463.0
+margin_right = 969.0
+margin_bottom = 536.0
+theme = SubResource( 5 )
+custom_constants/separation = 32
+alignment = 1
+
+[node name="LoadImage" type="Button" parent="VBoxContainer/Buttons"]
+margin_right = 293.0
+margin_bottom = 73.0
+text = "Load Image"
+
+[node name="LoadVideo" type="Button" parent="VBoxContainer/Buttons"]
+margin_left = 325.0
+margin_right = 599.0
+margin_bottom = 73.0
+text = "Load Video"
+
+[node name="OpenCamera" type="Button" parent="VBoxContainer/Buttons"]
+margin_left = 631.0
+margin_right = 969.0
+margin_bottom = 73.0
+text = "Open Camera"
+
+[node name="Video" type="VideoPlayer" parent="."]
+visible = false
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1001.0
+margin_bottom = 568.0
+
+[node name="ImageFileDialog" type="FileDialog" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1001.0
+margin_bottom = 568.0
+mode = 0
+access = 2
+filters = PoolStringArray( "*.bmp", "*.jpg", "*.png" )
+
+[node name="VideoFileDialog" type="FileDialog" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1001.0
+margin_bottom = 568.0
+mode = 0
+access = 2
+filters = PoolStringArray( "*.ogv" )
+
+[node name="PermissionDialog" type="AcceptDialog" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 1001.0
+margin_bottom = 568.0
+window_title = "Permission Denied"
+dialog_text = "Camera permission is not granted.
+Please start the camera again."

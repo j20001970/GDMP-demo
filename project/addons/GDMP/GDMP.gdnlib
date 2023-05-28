@@ -1,0 +1,18 @@
+[general]
+
+singleton=false
+load_once=true
+symbol_prefix="mediapipe_"
+reloadable=true
+
+[entry]
+
+Windows.64="res://addons/GDMP/libs/x86_64/GDMP.windows.dll"
+X11.64="res://addons/GDMP/libs/x86_64/libGDMP.linux.so"
+iOS.arm64="res://addons/GDMP/libs/GDMP.ios.framework"
+
+[dependencies]
+
+Windows.64=[ "res://addons/GDMP/libs/x86_64/opencv_world3410.dll", "res://addons/GDMP/libs/x86_64/opencv_world3410d.dll" ]
+X11.64=[  ]
+iOS.arm64=[  ]

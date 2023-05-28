@@ -8,16 +8,35 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Control",
+"class": "VisionTask",
+"language": "GDScript",
+"path": "res://vision/VisionTask.gd"
+} ]
+_global_script_class_icons={
+"VisionTask": ""
+}
+
 [application]
 
 config/name="GDMP Demo"
 config/description="Demo project for GDMP plugin"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+MediaPipe="*res://addons/GDMP/MediaPipe.gd"
 
 [display]
 
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/GDMP/plugin.cfg" )
 
 [gui]
 

@@ -1,0 +1,128 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://fonts/NotoSans-Bold.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Main.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 64
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=7]
+default_font = SubResource( 6 )
+
+[node name="Main" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 32
+custom_constants/margin_top = 32
+custom_constants/margin_left = 32
+custom_constants/margin_bottom = 32
+script = ExtResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 992.0
+margin_bottom = 568.0
+custom_constants/separation = 32
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 960.0
+margin_bottom = 110.0
+custom_fonts/font = SubResource( 1 )
+text = "GDMP Demo"
+align = 1
+valign = 1
+
+[node name="Back" type="Button" parent="VBoxContainer/Title"]
+visible = false
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+grow_vertical = 2
+custom_fonts/font = SubResource( 2 )
+text = "Back"
+
+[node name="Main" type="Control" parent="VBoxContainer"]
+margin_top = 142.0
+margin_right = 960.0
+margin_bottom = 536.0
+size_flags_vertical = 3
+
+[node name="Tasks" type="HBoxContainer" parent="VBoxContainer/Main"]
+anchor_top = 0.2
+anchor_right = 1.0
+anchor_bottom = 0.6
+theme = SubResource( 4 )
+custom_constants/separation = 32
+
+[node name="Audio" type="Button" parent="VBoxContainer/Main/Tasks"]
+margin_right = 299.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+text = "Audio Tasks"
+
+[node name="Text" type="Button" parent="VBoxContainer/Main/Tasks"]
+margin_left = 331.0
+margin_right = 622.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+text = "Text Tasks"
+
+[node name="Vision" type="Button" parent="VBoxContainer/Main/Tasks"]
+margin_left = 654.0
+margin_right = 960.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+text = "Vision Tasks"
+
+[node name="SelectTask" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+margin_top = 355.0
+margin_right = 960.0
+margin_bottom = 536.0
+size_flags_vertical = 3
+custom_constants/separation = 32
+
+[node name="TaskType" type="Label" parent="VBoxContainer/SelectTask"]
+margin_top = 46.0
+margin_right = 464.0
+margin_bottom = 134.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 5 )
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectTask"]
+margin_left = 496.0
+margin_right = 960.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+
+[node name="Tasks" type="VBoxContainer" parent="VBoxContainer/SelectTask/ScrollContainer"]
+margin_right = 464.0
+margin_bottom = 181.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource( 7 )
+custom_constants/separation = 48
+alignment = 1
