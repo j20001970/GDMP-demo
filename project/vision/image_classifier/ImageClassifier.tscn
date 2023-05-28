@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4bn2lny8a0y3"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_pgurb"]
+[ext_resource type="Script" path="res://vision/image_classifier/ImageClassifier.gd" id="2_lquui"]
+
+[node name="VisionTask" instance=ExtResource("1_pgurb")]
+script = ExtResource("2_lquui")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Image Classifier"
+
+[node name="Classifications" type="Label" parent="VBoxContainer/Image" index="0"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
