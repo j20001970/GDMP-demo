@@ -1,19 +1,24 @@
 extends VisionTask
 
 var task: MediaPipeFaceDetector
-var task_file := "res://vision/face_detector/face_detection_short_range.tflite"
+var task_file := "face_detection_short_range.tflite"
+var task_file_generation := 1677044301978921
 
 func _result_callback(result: MediaPipeDetectionResult, image: MediaPipeImage, timestamp_ms: int) -> void:
 	var img := image.get_image()
 	show_result(img, result)
 
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	base_options.model_asset_path = task_file
+	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeFaceDetector.new()
 	task.initialize(base_options, running_mode)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

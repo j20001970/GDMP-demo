@@ -2,6 +2,7 @@ class_name VisionTask
 extends Control
 
 var main_scene := preload("res://Main.tscn")
+var model_assets_dir := "user://GDMP/vision"
 var running_mode := MediaPipeTask.RUNNING_MODE_IMAGE
 var delegate := MediaPipeTaskBaseOptions.DELEGATE_CPU
 var camera_helper := MediaPipeCameraHelper.new()
@@ -51,6 +52,22 @@ func _process(delta: float) -> void:
 func _back() -> void:
 	reset()
 	get_tree().change_scene_to_packed(main_scene)
+
+func _get_model_asset(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, path: String) -> void:
+	if result != HTTPRequest.RESULT_SUCCESS:
+		return
+	if response_code != HTTPClient.RESPONSE_OK:
+		return
+	if body.is_empty():
+		return
+	if DirAccess.make_dir_recursive_absolute(model_assets_dir) != OK:
+		return
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file == null:
+		return
+	file.store_buffer(body)
+	file.close()
+	init_task()
 
 func _open_image() -> void:
 	if OS.get_name() == "Web":
@@ -115,7 +132,21 @@ func _camera_frame(image: MediaPipeImage) -> void:
 	process_camera_frame(image, Time.get_ticks_msec())
 
 func init_task() -> void:
-	pass
+	btn_load_image.disabled = false
+	btn_load_video.disabled = false
+	btn_open_camera.disabled = false
+
+func get_model_asset(filename: String, generation: int = -1) -> FileAccess:
+	var path := model_assets_dir.path_join(filename)
+	if FileAccess.file_exists(path):
+		var file := FileAccess.open(path, FileAccess.READ)
+		return file
+	if Global.enable_download_files:
+		var request := MediaPipeExternalFiles.get_file(filename, generation)
+		if request != null:
+			var callback := _get_model_asset.bind(path)
+			request.request_completed.connect(callback)
+	return null
 
 func process_image_frame(image: Image) -> void:
 	pass

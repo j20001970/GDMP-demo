@@ -1,7 +1,8 @@
 extends VisionTask
 
 var task: MediaPipeFaceLandmarker
-var task_file := "res://vision/face_landmarker/face_landmarker_v2_with_blendshapes.task"
+var task_file := "face_landmarker_v2_with_blendshapes.task"
+var task_file_generation := 1681322467931433
 
 @onready var lbl_blendshapes: Label = $VBoxContainer/Image/Blendshapes
 
@@ -10,13 +11,16 @@ func _result_callback(result: MediaPipeFaceLandmarkerResult, image: MediaPipeIma
 	show_result(img, result)
 
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	var file := FileAccess.open(task_file, FileAccess.READ)
 	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeFaceLandmarker.new()
 	task.initialize(base_options, running_mode, 1, 0.5, 0.5, 0.5, true)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

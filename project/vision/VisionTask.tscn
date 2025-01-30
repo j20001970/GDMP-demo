@@ -55,14 +55,17 @@ alignment = 1
 
 [node name="LoadImage" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
+disabled = true
 text = "Load Image"
 
 [node name="LoadVideo" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
+disabled = true
 text = "Load Video"
 
 [node name="OpenCamera" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
+disabled = true
 text = "Open Camera"
 
 [node name="Video" type="VideoStreamPlayer" parent="."]

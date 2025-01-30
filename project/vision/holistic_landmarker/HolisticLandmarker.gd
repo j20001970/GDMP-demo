@@ -1,8 +1,8 @@
 extends VisionTask
 
 var package_name := "mediapipe.tasks.vision.holistic_landmarker"
-var task_file := "res://vision/holistic_landmarker/holistic_landmarker.task"
-var options: MediaPipeProto
+var task_file := "holistic_landmarker.task"
+var task_file_generation := 1699635090585884
 var task_runner := MediaPipeTaskRunner.new()
 var image: Image
 
@@ -11,15 +11,13 @@ var image: Image
 func _packets_callback(outputs: Dictionary) -> void:
 	show_result(outputs)
 
-func _ready() -> void:
-	options = MediaPipeProto.new()
-	options.initialize(package_name+".proto.HolisticLandmarkerGraphOptions")
-	var file := FileAccess.open(task_file, FileAccess.READ)
-	var file_content := file.get_buffer(file.get_length())
-	options.set("base_options/model_asset/file_content", file_content)
-	super()
-
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
+	var options := MediaPipeProto.new()
+	options.initialize(package_name+".proto.HolisticLandmarkerGraphOptions")
+	options.set("base_options/model_asset/file_content", file.get_buffer(file.get_length()))
 	var builder := MediaPipeGraphBuilder.new()
 	var node := builder.add_node(package_name+".HolisticLandmarkerGraph")
 	node.set_options(options)
@@ -34,6 +32,7 @@ func init_task() -> void:
 	if running_mode == MediaPipeTask.RUNNING_MODE_LIVE_STREAM:
 		callback = self._packets_callback
 	task_runner.initialize(config, callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

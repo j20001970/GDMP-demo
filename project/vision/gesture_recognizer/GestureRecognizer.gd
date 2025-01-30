@@ -1,7 +1,8 @@
 extends VisionTask
 
 var task: MediaPipeGestureRecognizer
-var task_file := "res://vision/gesture_recognizer/gesture_recognizer.task"
+var task_file := "gesture_recognizer.task"
+var task_file_generation := 1677051715043311
 
 @onready var lbl_gesture: Label = $VBoxContainer/Image/Gesture
 
@@ -10,13 +11,16 @@ func _result_callback(result: MediaPipeGestureRecognizerResult, image: MediaPipe
 	show_result(img, result)
 
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	var file := FileAccess.open(task_file, FileAccess.READ)
 	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeGestureRecognizer.new()
 	task.initialize(base_options, running_mode)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

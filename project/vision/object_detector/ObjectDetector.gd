@@ -1,19 +1,24 @@
 extends VisionTask
 
 var task: MediaPipeObjectDetector
-var task_file := "res://vision/object_detector/efficientdet_lite0_fp16_no_nms.tflite"
+var task_file := "efficientdet_lite0_fp16_no_nms.tflite"
+var task_file_generation := 1730305296514873
 
 func _result_callback(result: MediaPipeDetectionResult, image: MediaPipeImage, timestamp_ms: int) -> void:
 	var img := image.get_image()
 	show_result(img, result)
 
 func init_task():
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	base_options.model_asset_path = task_file
+	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeObjectDetector.new()
 	task.initialize(base_options, running_mode, "en", -1, 0.5)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

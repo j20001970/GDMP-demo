@@ -20,15 +20,21 @@ var tasks_vision := {
 @onready var btn_task_audio: Button = main.get_node("Tasks/Audio")
 @onready var btn_task_text: Button = main.get_node("Tasks/Text")
 @onready var btn_task_vision: Button = main.get_node("Tasks/Vision")
+@onready var tgl_external_files: CheckButton = main.get_node("EnableExternalFiles")
 @onready var select_task: Control = $VBoxContainer/SelectTask
 @onready var lbl_task_type: Label = select_task.get_node("TaskType")
 @onready var lst_tasks: BoxContainer = select_task.get_node("ScrollContainer/Tasks")
+@onready var popup_external_files: ConfirmationDialog = $ExternalFilesPopup
 
 func _ready() -> void:
 	btn_back.pressed.connect(self._back)
 	btn_task_audio.pressed.connect(self._select_task.bind("Audio Tasks", tasks_audio))
 	btn_task_text.pressed.connect(self._select_task.bind("Text Tasks", tasks_text))
 	btn_task_vision.pressed.connect(self._select_task.bind("Vision Tasks", tasks_vision))
+	tgl_external_files.toggled.connect(_external_file_toggled)
+	popup_external_files.confirmed.connect(_enable_external_file)
+	if Global.enable_download_files:
+		tgl_external_files.button_pressed = true
 
 func _back() -> void:
 	btn_back.hide()
@@ -54,3 +60,15 @@ func _select_task(task_type: String, tasks: Dictionary) -> void:
 	main.hide()
 	select_task.show()
 	btn_back.show()
+
+func _external_file_toggled(toggled: bool) -> void:
+	if toggled:
+		if not Global.enable_download_files:
+			popup_external_files.popup_centered()
+			tgl_external_files.button_pressed = false
+	else:
+		Global.enable_download_files = false
+
+func _enable_external_file() -> void:
+	Global.enable_download_files = true
+	tgl_external_files.button_pressed = true

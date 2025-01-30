@@ -1,7 +1,8 @@
 extends VisionTask
 
 var task: MediaPipeHandLandmarker
-var task_file := "res://vision/hand_landmarker/hand_landmarker.task"
+var task_file := "hand_landmarker.task"
+var task_file_generation := 1677051718270846
 
 @onready var lbl_handedness: Label = $VBoxContainer/Image/Handedness
 
@@ -10,13 +11,16 @@ func _result_callback(result: MediaPipeHandLandmarkerResult, image: MediaPipeIma
 	show_result(img, result)
 
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	var file := FileAccess.open(task_file, FileAccess.READ)
 	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeHandLandmarker.new()
 	task.initialize(base_options, running_mode)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

@@ -1,7 +1,8 @@
 extends VisionTask
 
 var task: MediaPipeImageClassifier
-var task_file := "res://vision/image_classifier/mobilenet_v2_1.0_224.tflite"
+var task_file := "mobilenet_v2_1.0_224.tflite"
+var task_file_generation := 1661875840611150
 
 @onready var lbl_classifications: Label = $VBoxContainer/Image/Classifications
 
@@ -10,12 +11,16 @@ func _result_callback(result: MediaPipeClassificationResult, image: MediaPipeIma
 	show_result(img, result)
 
 func init_task() -> void:
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	base_options.model_asset_path = task_file
+	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipeImageClassifier.new()
 	task.initialize(base_options, running_mode)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()

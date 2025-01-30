@@ -16,6 +16,11 @@ run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.3", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MediaPipeExternalFiles="*res://addons/GDMP/MediaPipeExternalFiles.gd"
+Global="*res://Global.gd"
+
 [display]
 
 window/stretch/mode="viewport"

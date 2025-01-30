@@ -1,20 +1,24 @@
 extends VisionTask
 
 var task: MediaPipePoseLandmarker
-var task_file := "res://vision/pose_landmarker/pose_landmarker.task"
+var task_file := "pose_landmarker.task"
+var task_file_generation := 1681244249587900
 
 func _result_callback(result: MediaPipePoseLandmarkerResult, image: MediaPipeImage, timestamp_ms: int) -> void:
 	var img := image.get_image()
 	show_result(img, result)
 
 func init_task():
+	var file := get_model_asset(task_file, task_file_generation)
+	if file == null:
+		return
 	var base_options := MediaPipeTaskBaseOptions.new()
 	base_options.delegate = delegate
-	var file := FileAccess.open(task_file, FileAccess.READ)
 	base_options.model_asset_buffer = file.get_buffer(file.get_length())
 	task = MediaPipePoseLandmarker.new()
 	task.initialize(base_options, running_mode)
 	task.result_callback.connect(self._result_callback)
+	super()
 
 func process_image_frame(image: Image) -> void:
 	var input_image := MediaPipeImage.new()
