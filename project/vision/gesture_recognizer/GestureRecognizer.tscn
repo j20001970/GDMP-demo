@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2jak3255wncj"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_l7adm"]
+[ext_resource type="Script" uid="uid://ydxhql2bdxwn" path="res://vision/gesture_recognizer/GestureRecognizer.gd" id="2_515vn"]
+
+[node name="VisionTask" instance=ExtResource("1_l7adm")]
+script = ExtResource("2_515vn")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Gesture Recognizer"
+
+[node name="Gesture" type="Label" parent="VBoxContainer/Image" index="0"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1.0
+grow_vertical = 2
