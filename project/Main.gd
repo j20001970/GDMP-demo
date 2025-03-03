@@ -2,7 +2,19 @@ extends Control
 
 var tasks_audio := {}
 var tasks_text := {}
-var tasks_vision := {}
+var tasks_vision := {
+	"Face Detector": "res://vision/face_detector/FaceDetector.tscn",
+	"Face Landmarker": "res://vision/face_landmarker/FaceLandmarker.tscn",
+	"Face Stylizer": "res://vision/face_stylizer/FaceStylizer.tscn",
+	"Gesture Recognizer": "res://vision/gesture_recognizer/GestureRecognizer.tscn",
+	"Hand Landmarker": "res://vision/hand_landmarker/HandLandmarker.tscn",
+	"Holistic Landmarker": "res://vision/holistic_landmarker/HolisticLandmarker.tscn",
+	"Image Classifier": "res://vision/image_classifier/ImageClassifier.tscn",
+	"Image Embedder": "res://vision/image_embedder/ImageEmbedder.tscn",
+	"Image Segmenter": "res://vision/image_segmenter/ImageSegmenter.tscn",
+	"Object Detector": "res://vision/object_detector/ObjectDetector.tscn",
+	"Pose Landmarker": "res://vision/pose_landmarker/PoseLandmarker.tscn",
+}
 var tasks_genai := {}
 
 @onready var btn_back: Button = $VBoxContainer/Title/Back
@@ -48,6 +60,9 @@ func _select_task(task_type: String, tasks: Dictionary) -> void:
 			button.text = task
 			button.mouse_filter = Control.MOUSE_FILTER_PASS
 			button.pressed.connect(get_tree().change_scene_to_file.bind(tasks[task]))
+			if OS.get_name() == "Web" and task in ["Image Segmenter"]:
+				button.disabled = true
+				button.text += "\n(Unavailable on Web)"
 			lst_tasks.add_child(button)
 	main.hide()
 	select_task.show()
