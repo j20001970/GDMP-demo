@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://u0tdkwbnw60i"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_4i7kb"]
+[ext_resource type="Script" path="res://vision/pose_landmarker/PoseLandmarker.gd" id="2_0hxn3"]
+
+[node name="VisionTask" instance=ExtResource("1_4i7kb")]
+script = ExtResource("2_0hxn3")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Pose Landmarker"
