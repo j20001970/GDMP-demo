@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4i7amyfb3ing"]
+
+[ext_resource type="PackedScene" uid="uid://blb23ab5c6j31" path="res://text/TextTask.tscn" id="1_fndhp"]
+[ext_resource type="Script" uid="uid://bk318vudhcvok" path="res://text/language_detector/LanguageDetector.gd" id="2_sdbj8"]
+
+[node name="TextTask" instance=ExtResource("1_fndhp")]
+script = ExtResource("2_sdbj8")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Language Detector"
