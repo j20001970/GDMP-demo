@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dw4epliprwe1s"]
+
+[ext_resource type="PackedScene" uid="uid://blb23ab5c6j31" path="res://text/TextTask.tscn" id="1_b7rag"]
+[ext_resource type="Script" uid="uid://b22rg1ckcgmh1" path="res://text/text_classifier/TextClassifier.gd" id="2_cdeb2"]
+
+[node name="TextTask" instance=ExtResource("1_b7rag")]
+script = ExtResource("2_cdeb2")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Text Classifier"
