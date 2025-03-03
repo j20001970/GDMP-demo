@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbuiiol5driue"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_n7xnq"]
+[ext_resource type="Script" uid="uid://ci8ykt86ter0q" path="res://vision/face_stylizer/FaceStylizer.gd" id="2_54yar"]
+
+[node name="VisionTask" instance=ExtResource("1_n7xnq")]
+script = ExtResource("2_54yar")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Face Stylizer"
