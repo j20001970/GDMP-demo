@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cp5jy8el7s0rc"]
+
+[ext_resource type="PackedScene" uid="uid://cu2jsegm1nbtf" path="res://vision/VisionTask.tscn" id="1_pquj6"]
+[ext_resource type="Script" uid="uid://ux3uwkck1mvl" path="res://vision/image_embedder/ImageEmbedder.gd" id="2_po1fi"]
+
+[node name="VisionTask" instance=ExtResource("1_pquj6")]
+script = ExtResource("2_po1fi")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Image Embedder"

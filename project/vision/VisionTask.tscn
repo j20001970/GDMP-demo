@@ -1,0 +1,174 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu2jsegm1nbtf"]
+
+[ext_resource type="Script" uid="uid://cd8j4q768wuxu" path="res://vision/VisionTask.gd" id="1_xmyhf"]
+
+[sub_resource type="Theme" id="Theme_8m5im"]
+default_font_size = 48
+
+[sub_resource type="ImageTexture" id="ImageTexture_fdc01"]
+
+[sub_resource type="Theme" id="Theme_pmbf8"]
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_o6g06"]
+default_font_size = 32
+
+[node name="VisionTask" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_xmyhf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Vision Task"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[node name="OptionDelegate" type="OptionButton" parent="VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.8
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_8m5im")
+disabled = true
+alignment = 1
+selected = 0
+item_count = 2
+popup/item_0/text = "CPU"
+popup/item_0/id = 0
+popup/item_1/text = "GPU"
+popup/item_1/id = 1
+
+[node name="ExternalFileDisabled" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Downloading external files is disabled, task cannot be initialized.
+Enable downloading external files on the main menu to continue."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Image" type="TextureRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("ImageTexture_fdc01")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pmbf8")
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="LoadImage" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+disabled = true
+text = "Load Image"
+
+[node name="LoadVideo" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+disabled = true
+text = "Load Video"
+
+[node name="OpenCamera" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+disabled = true
+text = "Open Camera"
+
+[node name="Video" type="VideoStreamPlayer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="ImageFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.bmp, *.jpg, *.png")
+use_native_dialog = true
+
+[node name="VideoFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ogv")
+use_native_dialog = true
+
+[node name="SelectCamera" type="ConfirmationDialog" parent="."]
+title = "Select Camera"
+position = Vector2i(0, 36)
+size = Vector2i(200, 139)
+theme = SubResource("Theme_o6g06")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectCamera"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -71.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelFeed" type="Label" parent="SelectCamera/VBoxContainer"]
+layout_mode = 2
+text = "Select Camera:"
+
+[node name="SelectFeed" type="OptionButton" parent="SelectCamera/VBoxContainer"]
+layout_mode = 2
+
+[node name="LabelFormat" type="Label" parent="SelectCamera/VBoxContainer"]
+layout_mode = 2
+text = "Select Format:"
+
+[node name="SelectFormat" type="OptionButton" parent="SelectCamera/VBoxContainer"]
+layout_mode = 2
+
+[node name="CameraViewport" type="SubViewport" parent="."]
+disable_3d = true
+render_target_update_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="CameraViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PermissionDialog" type="AcceptDialog" parent="."]
+title = "Permission Denied"
+size = Vector2i(283, 109)
+dialog_text = "Camera permission is not granted.
+Please start the camera again."
