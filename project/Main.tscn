@@ -1,0 +1,121 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5lpjegcml0ma"]
+
+[ext_resource type="Script" uid="uid://c8u82td85krxv" path="res://Main.gd" id="2"]
+
+[sub_resource type="Theme" id="Theme_kq557"]
+default_font_size = 48
+
+[sub_resource type="Theme" id="Theme_0h4gy"]
+default_font_size = 48
+
+[node name="Main" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "GDMP Demo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="VBoxContainer/Title"]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[node name="Main" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tasks" type="GridContainer" parent="VBoxContainer/Main"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_right = 1.0
+anchor_bottom = 0.75
+theme = SubResource("Theme_kq557")
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 32
+columns = 3
+
+[node name="Audio" type="Button" parent="VBoxContainer/Main/Tasks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Audio Tasks"
+
+[node name="Text" type="Button" parent="VBoxContainer/Main/Tasks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Text Tasks"
+
+[node name="Vision" type="Button" parent="VBoxContainer/Main/Tasks"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Vision Tasks"
+
+[node name="EnableExternalFiles" type="CheckButton" parent="VBoxContainer/Main"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.0
+offset_top = -24.0
+offset_right = 22.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "Enable Downloading External Files"
+
+[node name="SelectTask" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 32
+
+[node name="TaskType" type="Label" parent="VBoxContainer/SelectTask"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/SelectTask"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tasks" type="VBoxContainer" parent="VBoxContainer/SelectTask/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = SubResource("Theme_0h4gy")
+theme_override_constants/separation = 48
+alignment = 1
+
+[node name="ExternalFilesPopup" type="ConfirmationDialog" parent="."]
+dialog_text = "GDMP Demo requires internet connection to download model assets from Google Cloud Storage.
+By enabling this option, your IP address may be revealed to Google, continue?"
+dialog_autowrap = true

@@ -12,6 +12,7 @@ config_version=5
 
 config/name="GDMP Demo"
 config/description="Demo project for GDMP plugin"
+run/main_scene="uid://c5lpjegcml0ma"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +20,7 @@ config/icon="res://icon.svg"
 
 MediaPipeExternalFiles="*res://addons/GDMP/MediaPipeExternalFiles.gd"
 GDMPAndroid="*res://addons/GDMP/GDMPAndroid.gd"
+Global="*res://Global.gd"
 
 [display]
 
