@@ -1,0 +1,50 @@
+name: Export
+on:
+  workflow_run:
+    workflows: [Build]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  export:
+    name: Export for Web
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export for Web
+        run: |
+          wget -q https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip
+          unzip Godot_v4.4-stable_linux.x86_64.zip
+          wget -q https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/
+          unzip -o -d ~/.local/share/godot/export_templates/ Godot_v4.4-stable_export_templates.tpz
+          mv ~/.local/share/godot/export_templates/templates ~/.local/share/godot/export_templates/4.4.stable
+          mkdir -p build/web
+          ./Godot_v4.4-stable_linux.x86_64 --headless --path ./project --export-release Web ../build/web/index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build/web'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
