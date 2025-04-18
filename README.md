@@ -17,3 +17,6 @@ Current supported platforms:
 - macOS (arm64 and x86_64)
 - Windows x86_64
 - Web ([Live Demo](https://j20001970.github.io/GDMP-demo))
+
+## Getting Started
+The demo comes with precompiled libraries, simply export the project to supported platform. You can also build the libraries yourself.
