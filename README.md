@@ -4,7 +4,7 @@ This is the demo project for [GDMP](https://github.com/j20001970/GDMP) plugin.
 > [!WARNING]
 > This repository is supposed to be rebased and squashed constantly.
 
-## Project Information
+## Project Information [![Build GDMP](https://github.com/j20001970/GDMP-demo/actions/workflows/build.yml/badge.svg)](https://github.com/j20001970/GDMP-demo/actions/workflows/build.yml)
 Godot version: **v4.5.stable**
 
 GDMP version: **aacdd86b77a06bd34193ff0e3609a140b7568009**
@@ -16,4 +16,4 @@ Current supported platforms:
 - Linux Desktop (Freedesktop SDK 24.08) (arm64 and x86_64)
 - macOS (arm64 and x86_64)
 - Windows x86_64
-- Web
+- Web ([Live Demo](https://j20001970.github.io/GDMP-demo))

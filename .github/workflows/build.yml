@@ -1,0 +1,57 @@
+name: Build
+on: push
+
+jobs:
+  check:
+    name: Check
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check
+        id: check
+        run: |
+          if [[ -d project/addons/GDMP/libs ]]
+          then
+          echo "should_run=false" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    name: Build
+    uses: j20001970/GDMP/.github/workflows/build.yml@master
+    needs: check
+    if: ${{ needs.check.outputs.should_run != 'false' }}
+    concurrency:
+      group: ${{ github.ref_name }}
+      cancel-in-progress: true
+    with:
+      working-directory: GDMP
+
+  commit:
+    name: Commit
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: project
+
+      - name: Push Change
+        env:
+          GITHUB_TOKEN: ${{ github.TOKEN }}
+        run: |
+          git add project/addons/GDMP
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git commit -m "add GDMP libraries"
+          git push

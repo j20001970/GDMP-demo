@@ -1,0 +1,58 @@
+name: Export
+on:
+  workflow_run:
+    workflows: [Build]
+    types:
+      - completed
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  export:
+    name: Export for Web
+    env:
+      URL: https://github.com/godotengine/godot/releases/download
+      VERSION: 4.5
+      STATUS: stable
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Export for Web
+        env:
+          EDITOR_URL: ${{ env.URL }}/${{ env.VERSION }}-${{ env.STATUS }}/Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64.zip
+          TEMPLATES_URL: ${{ env.URL }}/${{ env.VERSION }}-${{ env.STATUS }}/Godot_v${{ env.VERSION }}-${{ env.STATUS }}_export_templates.tpz
+          TEMPLATES_DIR: ~/.local/share/godot/export_templates
+        run: |
+          wget -q ${{ env.EDITOR_URL }}
+          unzip Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64.zip
+          wget -q ${{ env.TEMPLATES_URL }}
+          mkdir -p ${{ env.TEMPLATES_DIR }}
+          unzip -o Godot_v${{ env.VERSION }}-${{ env.STATUS }}_export_templates.tpz
+          mv templates ${{ env.TEMPLATES_DIR }}/${{ env.VERSION }}.${{ env.STATUS }}
+          mkdir -p build/web
+          ./Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64 --headless --path ./project --export-release Web ../build/web/index.html
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build/web'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
