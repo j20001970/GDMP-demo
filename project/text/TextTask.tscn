@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://blb23ab5c6j31"]
+
+[ext_resource type="Script" uid="uid://cxca7phwv3irx" path="res://text/TextTask.gd" id="1_rc1xq"]
+
+[node name="TextTask" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_rc1xq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Text Task"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="VBoxContainer/Title"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 0.2
+anchor_bottom = 0.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[node name="ExternalFileDisabled" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 32
+text = "Downloading external files is disabled, task cannot be initialized.
+Enable downloading external files on the main menu to continue."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Output" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Results will be displayed here."
+
+[node name="Input" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+editable = false

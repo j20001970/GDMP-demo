@@ -1,7 +1,10 @@
 extends Control
 
 var tasks_audio := {}
-var tasks_text := {}
+var tasks_text := {
+	"Text Classifier": "res://text/text_classifier/TextClassifier.tscn",
+	"Language Detector": "res://text/language_detector/LanguageDetector.tscn",
+}
 var tasks_vision := {
 	"Face Detector": "res://vision/face_detector/FaceDetector.tscn",
 	"Face Landmarker": "res://vision/face_landmarker/FaceLandmarker.tscn",
