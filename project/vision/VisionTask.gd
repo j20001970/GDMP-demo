@@ -6,7 +6,6 @@ var running_mode := MediaPipeVisionTask.RUNNING_MODE_IMAGE
 var delegate := MediaPipeTaskBaseOptions.DELEGATE_CPU
 var camera_extension: CameraServerExtension
 var camera_feed
-var camera_texture: CameraTexture
 var image_file_web: FileAccessWeb
 var video_file_web: FileAccessWeb
 
@@ -22,6 +21,8 @@ var video_file_web: FileAccessWeb
 @onready var select_camera_dialog: ConfirmationDialog = $SelectCamera
 @onready var opt_camera_feed: OptionButton = $SelectCamera/VBoxContainer/SelectFeed
 @onready var opt_camera_format: OptionButton = $SelectCamera/VBoxContainer/SelectFormat
+@onready var camera_viewport: SubViewport = $CameraViewport
+@onready var camera_texture: TextureRect = $CameraViewport/TextureRect
 @onready var permission_dialog: AcceptDialog = $PermissionDialog
 
 func _exit_tree() -> void:
@@ -69,10 +70,13 @@ func _process(_delta: float) -> void:
 
 func _reset() -> void:
 	video_player.stop()
-	if camera_feed:
-		camera_feed.feed_is_active = false
-		if camera_feed.frame_changed.is_connected(self._camera_feed_frame):
-			camera_feed.frame_changed.disconnect(self._camera_feed_frame)
+	if camera_feed == null:
+		return
+	camera_feed.feed_is_active = false
+	if camera_feed.format_changed.is_connected(self._camera_format_changed):
+		camera_feed.format_changed.disconnect(self._camera_format_changed)
+	if camera_feed.frame_changed.is_connected(self._camera_frame_changed):
+		camera_feed.frame_changed.disconnect(self._camera_frame_changed)
 
 func _back() -> void:
 	_reset()
@@ -201,11 +205,11 @@ func _format_selected(index: int) -> void:
 		select_camera_dialog.get_ok_button().disabled = true
 
 func _start_camera() -> void:
-	if camera_feed:
-		camera_texture = CameraTexture.new()
-		camera_texture.camera_feed_id = camera_feed.get_id()
-		camera_feed.frame_changed.connect(self._camera_feed_frame)
-		camera_feed.feed_is_active = true
+	if camera_feed == null:
+		return
+	camera_feed.format_changed.connect(self._camera_format_changed, ConnectFlags.CONNECT_DEFERRED)
+	camera_feed.frame_changed.connect(self._camera_frame_changed, ConnectFlags.CONNECT_DEFERRED)
+	camera_feed.feed_is_active = true
 
 func _camera_added(id: int):
 	for i in range(opt_camera_feed.item_count):
@@ -228,10 +232,45 @@ func _camera_removed(id: int):
 	if camera_feed != null and camera_feed.get_id() == id:
 		camera_feed = null
 
-func _camera_feed_frame() -> void:
+func _camera_format_changed() -> void:
+	if camera_feed == null:
+		return
+	var frame_size := Vector2i.ZERO
+	match camera_feed.get_datatype():
+		CameraFeed.FEED_RGB:
+			var texture_rgb := CameraTexture.new()
+			texture_rgb.camera_feed_id = camera_feed.get_id()
+			texture_rgb.which_feed = CameraServer.FEED_RGBA_IMAGE
+			frame_size = texture_rgb.get_size()
+			camera_texture.material = null
+			camera_texture.texture = texture_rgb
+		CameraFeed.FEED_YCBCR:
+			var texture_yuy2 := CameraTexture.new()
+			texture_yuy2.camera_feed_id = camera_feed.get_id()
+			texture_yuy2.which_feed = CameraServer.FEED_YCBCR_IMAGE
+			frame_size = texture_yuy2.get_size()
+			var mat := ShaderMaterial.new()
+			mat.shader = load("res://vision/yuy2_to_rgb.gdshader")
+			mat.set_shader_parameter("texture_yuy2", texture_yuy2)
+			camera_texture.material = mat
+			var image := Image.create_empty(frame_size.x, frame_size.y, false, Image.FORMAT_RGB8)
+			var image_texture := ImageTexture.new()
+			image_texture.set_image(image)
+			camera_texture.texture = image_texture
+		_:
+			return
+	camera_viewport.size = frame_size
+
+func _camera_frame_changed() -> void:
 	if camera_texture == null:
 		return
-	var image := camera_texture.get_image()
+	await RenderingServer.frame_post_draw
+	if camera_viewport == null:
+		return
+	var texture := camera_viewport.get_texture()
+	if texture == null:
+		return
+	var image = texture.get_image()
 	if image == null:
 		return
 	image.convert(Image.FORMAT_RGB8)

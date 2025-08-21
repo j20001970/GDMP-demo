@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cd8j4q768wuxu" path="res://vision/VisionTask.gd" id="1_xmyhf"]
 
-[sub_resource type="ImageTexture" id="ImageTexture_wteds"]
+[sub_resource type="ImageTexture" id="ImageTexture_fdc01"]
 
 [sub_resource type="Theme" id="Theme_pmbf8"]
 default_font_size = 48
@@ -43,7 +43,7 @@ text = "Back"
 [node name="Image" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-texture = SubResource("ImageTexture_wteds")
+texture = SubResource("ImageTexture_fdc01")
 expand_mode = 1
 stretch_mode = 5
 
@@ -109,6 +109,14 @@ layout_mode = 2
 
 [node name="SelectFormat" type="OptionButton" parent="SelectCamera/VBoxContainer"]
 layout_mode = 2
+
+[node name="CameraViewport" type="SubViewport" parent="."]
+disable_3d = true
+render_target_update_mode = 4
+
+[node name="TextureRect" type="TextureRect" parent="CameraViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="PermissionDialog" type="AcceptDialog" parent="."]
 title = "Permission Denied"
