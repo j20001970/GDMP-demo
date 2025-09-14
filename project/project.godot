@@ -16,6 +16,10 @@ run/main_scene="uid://c5lpjegcml0ma"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[audio]
+
+driver/enable_input=true
+
 [autoload]
 
 MediaPipeExternalFiles="*res://addons/GDMP/MediaPipeExternalFiles.gd"

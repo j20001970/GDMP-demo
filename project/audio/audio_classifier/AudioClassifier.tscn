@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://sxfs2g8ym5vp"]
+
+[ext_resource type="PackedScene" uid="uid://djfqe5ao7kjoj" path="res://audio/AudioTask.tscn" id="1_o0m5m"]
+[ext_resource type="Script" uid="uid://bu3jr8re84v51" path="res://audio/audio_classifier/AudioClassifier.gd" id="2_tlp7s"]
+
+[node name="AudioTask" instance=ExtResource("1_o0m5m")]
+script = ExtResource("2_tlp7s")
+
+[node name="Title" parent="VBoxContainer" index="0"]
+text = "Audio Classifier"
