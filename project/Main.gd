@@ -1,6 +1,8 @@
 extends Control
 
-var tasks_audio := {}
+var tasks_audio := {
+	"Audio Classifier": "res://audio/audio_classifier/AudioClassifier.tscn",
+}
 var tasks_text := {
 	"Text Classifier": "res://text/text_classifier/TextClassifier.tscn",
 	"Language Detector": "res://text/language_detector/LanguageDetector.tscn",
