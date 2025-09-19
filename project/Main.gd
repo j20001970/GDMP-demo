@@ -1,8 +1,25 @@
 extends Control
 
-var tasks_audio := {}
-var tasks_text := {}
-var tasks_vision := {}
+var tasks_audio := {
+	"Audio Classifier": "res://audio/audio_classifier/AudioClassifier.tscn",
+}
+var tasks_text := {
+	"Text Classifier": "res://text/text_classifier/TextClassifier.tscn",
+	"Language Detector": "res://text/language_detector/LanguageDetector.tscn",
+}
+var tasks_vision := {
+	"Face Detector": "res://vision/face_detector/FaceDetector.tscn",
+	"Face Landmarker": "res://vision/face_landmarker/FaceLandmarker.tscn",
+	"Face Stylizer": "res://vision/face_stylizer/FaceStylizer.tscn",
+	"Gesture Recognizer": "res://vision/gesture_recognizer/GestureRecognizer.tscn",
+	"Hand Landmarker": "res://vision/hand_landmarker/HandLandmarker.tscn",
+	"Holistic Landmarker": "res://vision/holistic_landmarker/HolisticLandmarker.tscn",
+	"Image Classifier": "res://vision/image_classifier/ImageClassifier.tscn",
+	"Image Embedder": "res://vision/image_embedder/ImageEmbedder.tscn",
+	"Image Segmenter": "res://vision/image_segmenter/ImageSegmenter.tscn",
+	"Object Detector": "res://vision/object_detector/ObjectDetector.tscn",
+	"Pose Landmarker": "res://vision/pose_landmarker/PoseLandmarker.tscn",
+}
 
 @onready var btn_back: Button = $VBoxContainer/Title/Back
 @onready var main: Control = $VBoxContainer/Main
