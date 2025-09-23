@@ -34,13 +34,14 @@ jobs:
         env:
           EDITOR_URL: ${{ env.URL }}/${{ env.VERSION }}-${{ env.STATUS }}/Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64.zip
           TEMPLATES_URL: ${{ env.URL }}/${{ env.VERSION }}-${{ env.STATUS }}/Godot_v${{ env.VERSION }}-${{ env.STATUS }}_export_templates.tpz
-          TEMPLATES_DIR: ~/.local/share/godot/export_templates/${{ env.VERSION }}.${{ env.STATUS }}/
+          TEMPLATES_DIR: ~/.local/share/godot/export_templates
         run: |
           wget -q ${{ env.EDITOR_URL }}
           unzip Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64.zip
           wget -q ${{ env.TEMPLATES_URL }}
           mkdir -p ${{ env.TEMPLATES_DIR }}
-          unzip -o -d ${{ env.TEMPLATES_DIR }} Godot_v${{ env.VERSION }}-${{ env.STATUS }}_export_templates.tpz
+          unzip -o Godot_v${{ env.VERSION }}-${{ env.STATUS }}_export_templates.tpz
+          mv templates ${{ env.TEMPLATES_DIR }}/${{ env.VERSION }}.${{ env.STATUS }}
           mkdir -p build/web
           ./Godot_v${{ env.VERSION }}-${{ env.STATUS }}_linux.x86_64 --headless --path ./project --export-release Web ../build/web/index.html
 
