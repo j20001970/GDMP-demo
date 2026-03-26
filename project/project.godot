@@ -22,7 +22,7 @@ GDMPAndroid="*uid://ccp6gbqbg33bg"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GDMP/plugin.cfg")
+enabled=PackedStringArray("res://addons/GDMP/plugin.cfg", "res://addons/gut/plugin.cfg")
 
 [physics]
 
