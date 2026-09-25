@@ -15,10 +15,19 @@ config/description="Demo project for GDMP plugin"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MediaPipeExternalFiles="*uid://d3neb5cwnsvqs"
+GDMPAndroid="*uid://ccp6gbqbg33bg"
+
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GDMP/plugin.cfg")
 
 [physics]
 
